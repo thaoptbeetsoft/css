@@ -11,7 +11,10 @@
 }
 
 * {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
+    /*tư căn chỉnh khi co lại*/
 }
 
 html,
@@ -261,8 +264,8 @@ h1 {
 /*button*/
 .button {
     margin: auto;
-    width: 500px;
-    height: 500px;
+    width: 700px;
+    height: 300px;
     background-color: #fff;
 }
 
@@ -294,7 +297,7 @@ h1 {
 }
 
 .btn--ok {
-    width: 90px;
+    width: 150px;
     background-color: #ffb702;
 }
 
@@ -313,17 +316,49 @@ h1 {
 /*thong bao*/
 .toast {
     display: flex;
-    align-items: center;
-    /*can item giua*/
+    align-items: center; /*can item giua*/
     background-color: #fff;
     border-radius: 2px;
-    border-left: 4px solid #66bf1e;
-    
     padding: 20px 0;
-   max-height: 80px;
-   max-width: 330px;
+    max-height: 100px;
+    min-height: 60px;
+    min-width: 320px;
+    max-width: 450px;
+    border-left: 4px solid;
+    /* animation: slineInLeft ease 1s, fadeOut linear 2s 3s forwards;slineInLeft la tien vao man hinh xong do 3s thi bat dau mo di trong 2s va forwards la dung lai */
+/*dua animation vao trong javacript de truyen time vao*/
+}
+.toast--success {
+    border-color:  #66bf1e;
+}
+.toast--success .toast__icon{/*khi goi toast--sucess thi chi toast__icon moi set cho color ra mau xanh|||| khi co dau phay o giua thi khi goi success thi ca success va toast_icon se xet cho color mau xanh */
+    color: #66bf1e;
 }
 
+.toast--error{
+    border-color:  #bf3e1e;
+}
+.toast--error .toast__icon{
+    border-color:  #bf3e1e;
+    color: #bf3e1e;
+}
+
+@keyframes slineInLeft{
+    from{
+        opacity: 0;
+        transform: translateX(calc(100% + 32px));/*an ra ngoai man hinh*/
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);/*tien vao ham hinh*/
+    }
+}
+@keyframes fadeOut {
+    to{
+        opacity: 0;/*bang 0 de an di*/
+    }
+    
+}
 .toast__icon,
 .toast__close {
     padding: 0 16px;
@@ -332,20 +367,26 @@ h1 {
 
 .toast__icon {
     font-size: 20px;
-    color: #66bf1e;
 }
 
 .toast__close {
     color: rgba(0, 0, 0, 0.5);
 }
+
 .toast__body {
     margin-right: 7px;
+    flex-grow: 1;
+    /*khi message ngan di thi div van giu nguy*/
 }
+
 .toast__message {
-    padding: 0px;
     font-size: 12px;
+    margin-top: 3px;
 }
-.toast__title{
-    padding: 0px;
-    margin: 10px 0px;
+
+#toast {
+    position: fixed;/*hien thong bao co dinh so voi thanh trinh duyen*/
+    top: 32px;
+    right: 32px;
+    z-index: 999999;/*neu nhung the khac de vao thi cho cai nay lon len nua*/
 }

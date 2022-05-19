@@ -5,7 +5,9 @@
     <title>F8-shop</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -144,35 +146,85 @@
                     minh thân cận nhất của mình trong khu vực, Belarus.</p>
             </div>
             <div class="the-end-second-two">
-                <p>Cũng trong buổi họp này, ông Lukashenko cũng cho biết ông đã đạt được một thỏa thuận với Moscow nhằm mua
-                    thêm tên lửa Iskander, đồng thời "giữ lại" các hệ thống tên lửa phòng không hiện đại S-400 của Nga hiện
+                <p>Cũng trong buổi họp này, ông Lukashenko cũng cho biết ông đã đạt được một thỏa thuận với Moscow nhằm
+                    mua
+                    thêm tên lửa Iskander, đồng thời "giữ lại" các hệ thống tên lửa phòng không hiện đại S-400 của Nga
+                    hiện
                     đang được đồn trú tại nước này.</p>
             </div>
         </div>
 
     </div>
     <div class="button">
-        <button class="btn btn--submit ">Submit</button>
-        <button class="btn btn--ok">Ok</button>
+        <button onclick="showSuccess();" class="btn btn--submit ">Show Success</button>
+        <button onclick="showError();" class="btn btn--ok">Show Error</button>
         <button class="btn btn--try">Try Again</button>
     </div>
     <div>
-        <div>
-            <div class="toast">
+        <div id="toast"></div>
+    </div>
+    </div>
+    <script>
+        function toast({ title = '', message = '', type = '', duration = 3000 })//tao ra ham
+        {
+            const main = document.getElementById('toast');
+            if (main) {
+                const toast = document.createElement('div');
+                
+                const autoRemoveId = setTimeout(function () {
+                    main.removeChild(toast);//xoa toast
+                }, duration + 1000);// sau bao nhieu giay thi xoa
+
+                toast.onclick=function(e){
+                    if(e.target.closest('.toast__close')){
+                        main.removeChild(toast);//xoa toast
+                        clearTimeout(autoRemoveId);//neu xoa roi thi ham setTimeOut kho chay nua
+                    }
+                }
+
+                const icons = {
+                    success: 'fa-solid fa-circle-check',
+                    error: 'fa-solid fa-circle-exclamation'
+                }
+                const icon = icons[type];
+                toast.classList.add('toast', `toast--${type}`);//add class vao the div
+                const delay = (duration / 1000);
+                toast.style.animation = `slineInLeft ease 1s, fadeOut linear 2s ${delay}s forwards`;
+                toast.innerHTML = `
                 <div class="toast__icon">
-                     <i class="fa-solid fa-circle-check"></i>
+                     <i class="${icon}"></i>
                 </div>
                 <div class="toast__body">
-                    <h3 class="toast__title">Success</h3>
-                    <p class="toast__message">Helo mọi người mình là Phạm Tuấn Thảo</p>
+                    <h3 class="toast__title">${title}</h3>
+                    <p class="toast__message">${message}</p>
                 </div>
                 <div class="toast__close">
                     <i class="fa-solid fa-xmark"></i>
                 </div>
-            </div>
-           
-        </div>
-    </div>
+                `;//dung `` moi truyen bien vao dc
+                main.appendChild(toast);//viet vao
+
+
+            }
+        }
+
+        function showError() {
+            toast({//goi hsm toast ra va truy du lieu vao
+                title: 'Error',
+                message: 'Helo mọi người Phạm Tuấn Thảo',
+                type: 'error',
+                duration: 3000
+            })
+        }
+        function showSuccess() {
+            toast({//goi hsm toast ra va truy du lieu vao
+                title: 'Success',
+                message: 'Helo mọi người Phạm Tuấn Thảo',
+                type: 'success',
+                duration: 2000
+            })
+        }
+    </script>
 </body>
 
 </html>
